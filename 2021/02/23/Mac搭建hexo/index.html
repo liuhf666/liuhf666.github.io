@@ -18,7 +18,7 @@
 <p>【2】用 <code>终端</code> 或者 <code>Github Desktop</code>软件 Clone zhangsan.github.io 仓库到本地你指定的目录下。</p>
 <p>【3】进入到<code>blog</code>文件夹，找到 <code>_config.yml</code> (站点配置文件)然后打开它，我用<code>Xcode</code>打开它，翻到最后面，进行如下操作</p>
 <p>改成这个样子：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type:git</span><br><span class="line">  repository:git@github.com:zhangsan/zhangsan.github.io.git</span><br><span class="line">  branch:master</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:zhangsan/zhangsan.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
 <p>【4】打开<code>终端</code> 输入 </p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save </span><br><span class="line">hexo generate 或 hexo g    //生成静态界面</span><br><span class="line">hexo server   或 hexo s             //本地启动</span><br></pre></td></tr></table></figure>
 
