@@ -32,12 +32,13 @@
 <h4 id="常用的Hexo基本操作"><a href="#常用的Hexo基本操作" class="headerlink" title="常用的Hexo基本操作"></a>常用的Hexo基本操作</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">hexo clean                //清理缓存</span><br><span class="line">hexo generate             //生成静态界面</span><br><span class="line">hexo deploy               //部署到Github</span><br><span class="line">hexo server               //本地启动博客</span><br><span class="line">    </span><br><span class="line">hexo new “文章名”          //新建一篇文章</span><br><span class="line">hexo new page &quot;页面名&quot;     //新建一个页面</span><br><span class="line">hexo help                 //查看帮助</span><br><span class="line">hexo version              //查看Hexo的版本</span><br></pre></td></tr></table></figure>
 
 <h3 id="给你的博客安装并配置-Maupassant主题"><a href="#给你的博客安装并配置-Maupassant主题" class="headerlink" title="给你的博客安装并配置 Maupassant主题"></a>给你的博客安装并配置 Maupassant主题</h3><p>Maupassant最初是由Cho大神为Typecho平台设计开发的一套响应式模板，体积只有20KB，在各种尺寸的设备上表现出色。由于其简洁大气的风格受到许多用户喜爱，目前也已经被移植到了多个平台上，例如：</p>
-<pre><code>* Typecho：(https://github.com/pagecho/maupassant/)
-* Octopress：https://github.com/pagecho/mewpassant/
-* Farbox：https://github.com/pagecho/Maupassant-farbox/
-* Wordpress：https://github.com/iMuFeng/maupassant/
-* Ghost: https://github.com/LjxPrime/maupassant/
-</code></pre>
+<ul>
+<li>Typecho：(<a target="_blank" rel="noopener" href="https://github.com/pagecho/maupassant/">https://github.com/pagecho/maupassant/</a>)</li>
+<li>Octopress：<a target="_blank" rel="noopener" href="https://github.com/pagecho/mewpassant/">https://github.com/pagecho/mewpassant/</a></li>
+<li>Farbox：<a target="_blank" rel="noopener" href="https://github.com/pagecho/Maupassant-farbox/">https://github.com/pagecho/Maupassant-farbox/</a></li>
+<li>Wordpress：<a target="_blank" rel="noopener" href="https://github.com/iMuFeng/maupassant/">https://github.com/iMuFeng/maupassant/</a></li>
+<li>Ghost: <a target="_blank" rel="noopener" href="https://github.com/LjxPrime/maupassant/">https://github.com/LjxPrime/maupassant/</a></li>
+</ul>
 <p>【1】安装主题和渲染器<br>    使用<code>终端</code> 进入到 <code>blog</code>目录下，输入命令</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/tufu9441/maupassant-hexo.git themes/maupassant  </span><br><span class="line">npm install hexo-renderer-pug --save  </span><br><span class="line">npm install hexo-renderer-sass --save  </span><br></pre></td></tr></table></figure>
 
