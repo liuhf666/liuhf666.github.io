@@ -5,8 +5,9 @@
 <ul>
 <li>图片失效导致无法加载；</li>
 <li>打开网页后要再请求加载图片；</li>
-<li>原网站限制，如微信公众号的图片会变得不可见等。<br>这种方式算是有利有弊。<br>绝对路径是图片在计算机中的绝对位置，相对路径是相对于当前文件的路径。<br>由于我们的博客是要部署在网站上，部署后会生成新的文件目录，所以我们选择使用相对路径的方式。<br>在hexo中使用文章资源文件夹需要在_config.yaml文件中更改一下配置：<br>post_asset_folder: true<br>当该配置被应用后，使用hexo new命令创建新文章时，会生成相同名字的文件夹，也就是文章资源文件夹。</li>
+<li>原网站限制，如微信公众号的图片会变得不可见等。</li>
 </ul>
+<p>这种方式算是有利有弊。<br>绝对路径是图片在计算机中的绝对位置，相对路径是相对于当前文件的路径。<br>由于我们的博客是要部署在网站上，部署后会生成新的文件目录，所以我们选择使用相对路径的方式。<br>在hexo中使用文章资源文件夹需要在_config.yaml文件中更改一下配置：<br>post_asset_folder: true<br>当该配置被应用后，使用hexo new命令创建新文章时，会生成相同名字的文件夹，也就是文章资源文件夹。</p>
 <p>由于项目会生成新的文件目录，同时会解析Markdown中的图片路径，会导致一个问题。<br>如在一个文件目录下，博客名为1.md，相应的存在一个1文件夹存放图片image.jpg。<br>在vscode编辑器中，普通的md文件使用<code>![](1/image.jpg)</code>能在编辑器中正常显示图片。<br>在hexo中，按理说应该是使用<code>![](image.jpg)</code>，但网页中却无法正常显示。<br>此时应该使用这样的方式来引入图片：<br><code>&#123;% asset_img image.jpg 这是一张图片 %&#125;</code></p>
 </div><div class="tags"><a href="/tags/Hexo/"><i class="fa fa-tag"></i>Hexo</a></div><div class="post-nav"><a class="next" href="/2021/02/24/web%E5%A4%A7%E5%8E%82%E9%9D%A2%E7%BB%8F/">web大厂面经-字节(一)</a></div><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/sukkaw/disqusjs/dist/disqusjs.css?v=1.0.0"><script type="text/javascript" src="https://cdn.jsdelivr.net/gh/sukkaw/disqusjs/dist/disqus.js?v=1.0.0"></script><script type="text/javascript" id="disqus-count-script">$(function() {
      var xhr = new XMLHttpRequest();
