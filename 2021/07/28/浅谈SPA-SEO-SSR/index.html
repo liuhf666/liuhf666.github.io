@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="光阴似箭 岁月如梭 时光荏苒,转眼即逝。"><title>浅谈SPA,SEO,SSR | Monster</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="/css/dark.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">浅谈SPA,SEO,SSR</h1><a id="logo" href="/.">Monster</a><p class="description">long long ago..</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tags"> 标签</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">浅谈SPA,SEO,SSR</h1><div class="post-meta">2021-07-28<span> | </span><span class="category"><a href="/categories/SPA-SEO-SSR/">SPA,SEO,SSR</a></span></div><a class="disqus-comment-count" data-disqus-identifier="2021/07/28/浅谈SPA-SEO-SSR/" href="/2021/07/28/%E6%B5%85%E8%B0%88SPA-SEO-SSR/#disqus_thread"></a><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%91%E7%90%86%E8%A7%A3%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB"><span class="toc-number">1.</span> <span class="toc-text">我理解的前后端分离</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.2.</span> <span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E4%BC%98%E7%82%B9"><span class="toc-number">1.3.</span> <span class="toc-text">主要优点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SPA"><span class="toc-number">2.</span> <span class="toc-text">SPA</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">2.1.</span> <span class="toc-text">概述</span></a></li></ol></li></ol></div></div><div class="post-content"><p>前后端分离算是最近Web开发的大趋势，目前已经有大量的公司使用类前后端分离的开发方式。那我们就来大概谈谈前后端分离开发中必须要了解和接触的几个概念：SPA、SEO和SSR。在谈着几个概念之前，先来聊聊我理解的前后端分离。</p>
+<h3 id="我理解的前后端分离"><a href="#我理解的前后端分离" class="headerlink" title="我理解的前后端分离"></a>我理解的前后端分离</h3><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>最开始接触web前后端分离在将公司旧的项目进行重构，另外我们的项目还有移动端，所以后端除了提供数据渲染web前端的页面以外还得给移动端提供接口，实际上两端的数据大多都是相同的。<br>传统的web前后端开发大多是前端将页面写好，之后丢给后端，让后端将页面集成到项目中去。这里就存在这一个前后端耦合的问题，首先对于后端来说，不仅要写后端逻辑，还得集成前端页面（要是页面哪里再有啥问题就更悲催了，都是泪啊~~），而对于前端来说，不是很轻松地就能看到页面的真正渲染出来的样子，显示是不利于开发调试的，这里的效率自然也成了问题。<br>也正是由于前后端的高耦合，使得任何一方的变化都会影响到另一方。<br>针对类似于上述的一些问题，前端端分离的思想遍应运而生。</p>
+<h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><p>前后端根据<a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1022910821149312/1023022332902400">AJAX</a>接口进行数据的交互，目前常见的前后端直接将数据以JSON的格式返回给前端，前端根据后端服务器返回的数据，操作DOM。</p>
+<h4 id="主要优点"><a href="#主要优点" class="headerlink" title="主要优点"></a>主要优点</h4><ul>
+<li>分工明确，前后端各司其职，后端专注业务逻辑和功能的实现，前端专注页面设计。</li>
+<li>接口明确，并行开发，在后端接口没有实现好之前，前端完全可以自己通过Node.js的Express和koa等的web框架模拟接口，提供测试数据。</li>
+<li>提高开发效率，一定程度上减少了前后端的<del>沟通成本</del>撕逼。</li>
+</ul>
+<p>在前后端分离中，后端一般提供RESTful API，常将数据以JSON格式返回；而前端一般使用什么呢，这里便是引出了我们讨论的主题之一：SPA。</p>
+<h3 id="SPA"><a href="#SPA" class="headerlink" title="SPA"></a>SPA</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>SPA全称是single page application（在百度百科和一些文章中使用的是single page web application，经过一番查询了解，我觉得single page application才应该是它的全称）。<br>SPA是一种网络应用程序（WebApp）模型。在传统的网站中，不同的页面之间的切换都是直接从服务器加载一整个新的页面，而在SPA这个模型中，是通过动态地重写页面的部分与用户交互，而避免了过多的数据交换，响应速度自然相对更高。<br>举个例子，请看<a target="_blank" rel="noopener" href="https://www.zhihu.com/">知乎</a>首页:<br><img src="26.png" alt="知乎首页"><br>在知乎Web页面中，一些部分是几乎不会发生改变的，比如导航栏，当我们点了某一个问题进入之后<br><img src="27.png" alt="知乎的回答"><br>它的导航栏依然不会有什么变化，而在传统的Web网站中，进入了新的页面，会从服务器请求完整的一整个页面，而在SPA中，当切换到新的页面，只需要重写页面发生了变化的部分。</p>
+</div><div class="tags"><a href="/tags/SPA/"><i class="fa fa-tag"></i>SPA</a><a href="/tags/SEO/"><i class="fa fa-tag"></i>SEO</a><a href="/tags/SSR/"><i class="fa fa-tag"></i>SSR</a></div><div class="post-nav"><a class="next" href="/2021/07/26/ES5%E5%AE%9E%E7%8E%B0%E7%BB%A7%E6%89%BF/">ES5实现继承</a></div><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/sukkaw/disqusjs/dist/disqusjs.css?v=1.0.0"><script type="text/javascript" src="https://cdn.jsdelivr.net/gh/sukkaw/disqusjs/dist/disqus.js?v=1.0.0"></script><script type="text/javascript" id="disqus-count-script">$(function() {
+     var xhr = new XMLHttpRequest();
+     xhr.open('GET', '//disqus.com/next/config.json', true);
+     xhr.timeout = 2500;
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4 && xhr.status === 200) {
+         $('.post-meta .post-comments-count').show();
+         var s = document.createElement('script');
+         s.id = 'dsq-count-scr';
+         s.src = 'https://.disqus.com/count.js';
+         s.async = true;
+         (document.head || document.body).appendChild(s);
+       }
+     };
+     xhr.ontimeout = function () { xhr.abort(); };
+     xhr.send(null);
+   });</script><div class="comments" id="disqus_thread"><script type="text/javascript">// Load comments with DisqusJS
+function loadComments() {
+  window.dsqjs = new DisqusJS({
+    shortname: '',
+    siteName: 'Monster',
+    identifier: '2021/07/28/浅谈SPA-SEO-SSR/',
+    url: 'https://liuhf666.github.io/2021/07/28/浅谈SPA-SEO-SSR/',
+    title: '浅谈SPA,SEO,SSR',
+    api: '',
+    apikey: '',
+    admin: '',
+    adminLabel: ''
+  });
+}
+// Lazy load {# Credit: https://github.com/theme-next/hexo-theme-next/blob/master/layout/_third-party/comments/disqus.swig #}
+(function () {
+  var offsetTop = document.getElementById('disqus_thread').offsetTop - window.innerHeight;
+  if (offsetTop <= 0) {
+    // Load directly when there's no scrollbar
+    window.addEventListener('load', loadComments, false);
+  } else {
+    var disqusScroll = function () {
+      // offsetTop may changes because of manually resizing browser window or lazy loading images
+      var offsetTop = document.getElementById('disqus_thread').offsetTop - window.innerHeight;
+      var scrollTop = window.scrollY;
+
+      // Pre-load comments a bit? (margin or anything else)
+      if (offsetTop - scrollTop < 60) {
+        window.removeEventListener('scroll', disqusScroll);
+        loadComments();
+      }
+    };
+    window.addEventListener('scroll', disqusScroll);
+  }
+})();
+// Scroll to comments automatically if #comment-xxx anchor specified
+window.addEventListener('load', function () {
+  // I don't know why, it just works.
+  window.setTimeout(function () {
+    if (location.hash.indexOf('#comment-') !== -1) {
+      document.getElementById('disqus_thread').scrollIntoView(true);
+    }
+  }, 100);
+}, false);
+</script></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="https://liuhf666.github.io"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ES5/">ES5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Life/">Life</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SPA-SEO-SSR/">SPA,SEO,SSR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E9%9D%A2%E7%BB%8F/">Web面经</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8E%9F%E5%9E%8B%E9%93%BE/">原型链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B7%B1-%E6%B5%85%E6%8B%B7%E8%B4%9D/">深&浅拷贝</a><span class="category-list-count">1</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/07/28/%E6%B5%85%E8%B0%88SPA-SEO-SSR/">浅谈SPA,SEO,SSR</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/07/26/ES5%E5%AE%9E%E7%8E%B0%E7%BB%A7%E6%89%BF/">ES5实现继承</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/07/22/Vue%E9%A1%B9%E7%9B%AE%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88/">Vue项目性能优化方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/07/22/vue%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E5%B9%B6%E6%93%8D%E4%BD%9CDOM%E5%85%83%E7%B4%A0/">Vue如何获取并操作DOM元素</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/07/21/HTTP%E5%92%8CHTTPS/">HTTP和HTTPS</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/09/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B5%85%E6%8B%B7%E8%B4%9D/">深拷贝和浅拷贝</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/08/%E5%8E%9F%E5%9E%8B%E9%93%BE%E4%B8%8A%E7%9A%84%E9%82%A3%E4%BA%9B-%E5%AD%A6%E9%97%AE/">原型链上的那些[学问]</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/03/26/web%E5%A4%A7%E5%8E%82%E9%9D%A2%E7%BB%8F-%E9%98%BF%E9%87%8C-%E4%B8%80/">web大厂面经-阿里-一</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/03/23/web%E5%A4%A7%E5%8E%82%E9%9D%A2%E7%BB%8F-%E8%8A%82%E7%82%B9-%E5%85%AD/">web大厂面经-字节(六)</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/03/16/web%E5%A4%A7%E5%8E%82%E9%9D%A2%E7%BB%8F-%E5%AD%97%E8%8A%82-%E4%BA%94/">web大厂面经-字节(五)</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://liuhf666.github.io/" title="liuhf" target="_blank">liuhf</a><ul></ul><a href="https://github.com/liuhf666/liuhf666.github.io.git" title="Git" target="_blank">Git</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">Monster.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.css"><script type="text/javascript" color="255,0,0" opacity="0.7" zIndex="-1" count="88" src="//cdn.jsdelivr.net/npm/canvas-nest.js/dist/canvas-nest.min.js"></script><script type="text/javascript" src="/js/love.js"></script><script type="text/javascript" src="/js/copycode.js" successtext="复制成功!"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>
