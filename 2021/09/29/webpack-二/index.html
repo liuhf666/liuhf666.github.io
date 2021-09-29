@@ -1,0 +1,431 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="光阴似箭 岁月如梭 时光荏苒,转眼即逝。"><title>webpack(二) | Monster</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="/css/dark.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">webpack(二)</h1><a id="logo" href="/.">Monster</a><p class="description">long long ago..</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tags"> 标签</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">webpack(二)</h1><div class="post-meta">2021-09-29<span> | </span><span class="category"><a href="/categories/webpack/">webpack</a></span></div><a class="disqus-comment-count" data-disqus-identifier="2021/09/29/webpack-二/" href="/2021/09/29/webpack-%E4%BA%8C/#disqus_thread"></a><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80"><span class="toc-number">1.</span> <span class="toc-text">基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%93%E5%8C%85CSS"><span class="toc-number">1.1.</span> <span class="toc-text">打包CSS</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#webpack-%E6%89%93%E5%8C%85CSS"><span class="toc-number">1.1.1.</span> <span class="toc-text">webpack 打包CSS</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#webpack-%E6%89%93%E5%8C%85less"><span class="toc-number">1.1.2.</span> <span class="toc-text">webpack 打包less</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%89%93%E5%8C%85%E6%88%90%E7%8B%AC%E7%AB%8B%E7%9A%84CSS%E6%96%87%E4%BB%B6"><span class="toc-number">1.1.3.</span> <span class="toc-text">打包成独立的CSS文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%A0%B7%E5%BC%8F%E5%89%8D%E7%BC%80"><span class="toc-number">1.1.4.</span> <span class="toc-text">添加样式前缀</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A0%A1%E9%AA%8CCSS%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.1.5.</span> <span class="toc-text">校验CSS代码格式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8E%8B%E7%BC%A9CSS"><span class="toc-number">1.1.6.</span> <span class="toc-text">压缩CSS</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%93%E5%8C%85HTML"><span class="toc-number">1.2.</span> <span class="toc-text">打包HTML</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%93%E5%8C%85JS"><span class="toc-number">1.3.</span> <span class="toc-text">打包JS</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BC%96%E8%AF%91JS"><span class="toc-number">1.3.1.</span> <span class="toc-text">编译JS</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A0%A1%E9%AA%8CJS%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.3.2.</span> <span class="toc-text">校验JS代码格式</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%93%E5%8C%85%E5%9B%BE%E7%89%87"><span class="toc-number">1.4.</span> <span class="toc-text">打包图片</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%93%E5%8C%85%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6"><span class="toc-number">1.5.</span> <span class="toc-text">打包字体文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E6%A8%A1%E5%9D%97%EF%BC%88Asset-Module%EF%BC%89"><span class="toc-number">1.6.</span> <span class="toc-text">资源模块（Asset Module）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Webpack-Dev-Server"><span class="toc-number">1.7.</span> <span class="toc-text">Webpack Dev Server</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E9%98%B6"><span class="toc-number">2.</span> <span class="toc-text">进阶</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%BA%E5%88%86%E7%8E%AF%E5%A2%83%E6%89%93%E5%8C%85"><span class="toc-number">2.1.</span> <span class="toc-text">区分环境打包</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#webpack-%E9%80%9A%E8%BF%87%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%8C%BA%E5%88%86%E6%89%93%E5%8C%85"><span class="toc-number">2.1.1.</span> <span class="toc-text">webpack 通过环境变量区分打包</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#webpack-%E9%80%9A%E8%BF%87%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8C%BA%E5%88%86%E6%89%93%E5%8C%85"><span class="toc-number">2.1.2.</span> <span class="toc-text">webpack 通过配置文件区分打包</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#webpack-DefinePlugin"><span class="toc-number">2.1.3.</span> <span class="toc-text">webpack DefinePlugin</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89-plugin"><span class="toc-number">2.2.</span> <span class="toc-text">自定义 plugin</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%B8%8E%E9%92%A9%E5%AD%90"><span class="toc-number">2.2.1.</span> <span class="toc-text">生命周期与钩子</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89-loader"><span class="toc-number">2.3.</span> <span class="toc-text">自定义 loader</span></a></li></ol></li></ol></div></div><div class="post-content"><h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><ul>
+<li>打包CSS</li>
+<li>打包HTML</li>
+<li>打包JS</li>
+<li>打包图片</li>
+<li>打包字体</li>
+<li>资源模块（Asset Modules）</li>
+<li>开发服务器（Dev Server）<h4 id="打包CSS"><a href="#打包CSS" class="headerlink" title="打包CSS"></a>打包CSS</h4></li>
+<li>打包逻辑</li>
+<li>打包LESS</li>
+<li>打包成独立的CSS文件</li>
+<li>添加样式前缀</li>
+<li>格式校验</li>
+<li>压缩CSS<h5 id="webpack-打包CSS"><a href="#webpack-打包CSS" class="headerlink" title="webpack 打包CSS"></a>webpack 打包CSS</h5></li>
+<li>非JS文件打包，需要对应的loader<ul>
+<li>css-loader将CSS转化为JS（将CSS输出到打包后的JS文件中）</li>
+<li>style-loader 把包含CSS内容的JS代码，挂载到页面的<code>&lt;style&gt;</code>标签中</li>
+</ul>
+</li>
+<li>引入CSS （import “./css/main.css”）</li>
+<li>安装（npm i css-loader style-loader -D）</li>
+<li>配置<ul>
+<li>匹配后缀名： <code>test:/\.css$/i,</code></li>
+<li>指定加载器： <code>use:[&#39;style-loader&#39;,&#39;css-loader&#39;]</code><br><img src="35.jpg"><h5 id="webpack-打包less"><a href="#webpack-打包less" class="headerlink" title="webpack 打包less"></a>webpack 打包less</h5></li>
+</ul>
+</li>
+<li>引入less<ul>
+<li>import “./css/main.less”</li>
+</ul>
+</li>
+<li>安装<ul>
+<li>npm i less less-loader -D</li>
+</ul>
+</li>
+<li>配置<ul>
+<li>匹配后缀名： test:/.less$/i</li>
+<li>指定加载器： use: [‘style-loader’,’css-loader’,’less-loader’]<br><img src="34.jpg"><h5 id="打包成独立的CSS文件"><a href="#打包成独立的CSS文件" class="headerlink" title="打包成独立的CSS文件"></a>打包成独立的CSS文件</h5></li>
+</ul>
+</li>
+<li>安装插件<ul>
+<li>npm install mini-css-extract-plugin -D</li>
+</ul>
+</li>
+<li>引入插件（webpack.config.js）<ul>
+<li>const MiniCssExtractPlugin = require(‘mini-css-extract-plugin’);</li>
+</ul>
+</li>
+<li>替换 style-loader (use: [‘MiniCssExtractPlugin.loader’,’css-loader’])<ul>
+<li>style-loader: 把CSS打包到<code>&lt;style&gt;</code>标签中</li>
+<li>MiniCssExtractPlugin.loader: 将CSS打包到独立文件中</li>
+</ul>
+</li>
+<li>配置插件（new MiniCssExtractPlugin({})）</li>
+<li>官网 <a target="_blank" rel="noopener" href="https://www.npmjs.com/">https://www.npmjs.com</a><h5 id="添加样式前缀"><a href="#添加样式前缀" class="headerlink" title="添加样式前缀"></a>添加样式前缀</h5></li>
+<li>安装 <ul>
+<li>npm install postcss-loader autoprefixer -D</li>
+</ul>
+</li>
+<li>配置 webpack.config.js<ul>
+<li>use: [‘MiniCssExtractPlugin.loader’,’css-loader’,’postcss-loader’]</li>
+</ul>
+</li>
+<li>新建postcss.config.js<ul>
+<li>plugins: [require(‘autoprefixer’)]</li>
+</ul>
+</li>
+<li>配置需要兼容的浏览器<ul>
+<li>package.json 中指定 browserslist</li>
+<li>详情参考：<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/browserslist">https://www.npmjs.com/package/browserslist</a><br><img src="32.jpg"><h5 id="校验CSS代码格式"><a href="#校验CSS代码格式" class="headerlink" title="校验CSS代码格式"></a>校验CSS代码格式</h5></li>
+</ul>
+</li>
+<li>安装<ul>
+<li>npm i stylelint stylelint-config-standard stylelint-webpack-plugin -D</li>
+</ul>
+</li>
+<li>引入<ul>
+<li>const StylelintPlugin = require(‘stylelint-webpack-plugin’);</li>
+</ul>
+</li>
+<li>配置<ul>
+<li>new StylelintPlugin({})</li>
+</ul>
+</li>
+<li>指定校验规则（在package.json 中指定stylelint ）<ul>
+<li>“stylelint”: {“extends”: “style-config-standard”}</li>
+</ul>
+</li>
+<li>stylelint<ul>
+<li><a target="_blank" rel="noopener" href="https://stylelint.io/">https://stylelint.io</a></li>
+<li>校验规则（number-leading-zero）<ul>
+<li>line-height: .5; 错误</li>
+<li>line-height: 0.5; 正确</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>stylelint-config-standard<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/stylelint/stylelint-config-standard">https://github.com/stylelint/stylelint-config-standard</a></li>
+</ul>
+</li>
+<li>stylelint-webpack-plugin<ul>
+<li><a target="_blank" rel="noopener" href="https://webpack.docschina.org/plugins/stylelint-webpack-plugin">https://webpack.docschina.org/plugins/stylelint-webpack-plugin</a><br><img src="33.jpg"><h5 id="压缩CSS"><a href="#压缩CSS" class="headerlink" title="压缩CSS"></a>压缩CSS</h5></li>
+</ul>
+</li>
+<li>安装<ul>
+<li>npm install optimize-css-assets-webpack-plugin -D</li>
+</ul>
+</li>
+<li>引入<ul>
+<li>OptimizeCssAssetsPlugin = require(‘optimize-css-assets-webpack-plugin’);</li>
+</ul>
+</li>
+<li>配置<ul>
+<li>new OptimizeCssAssetsPlugin()<br>代码位置：/Users/liujing/work/casteis/02.webpackconfig_css<h4 id="打包HTML"><a href="#打包HTML" class="headerlink" title="打包HTML"></a>打包HTML</h4></li>
+</ul>
+</li>
+<li>html-webpack-plugin<ul>
+<li>生成HTML文件（用于服务器访问），并在HTML中加载所有的打包资源</li>
+<li>指定HTML模板、设置HTML变量、压缩HTML</li>
+</ul>
+</li>
+<li>安装<ul>
+<li>npm install html-webpack-plugin -D</li>
+</ul>
+</li>
+<li>配置<ul>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/html-webpack-plugin">https://www.npmjs.com/package/html-webpack-plugin</a></li>
+</ul>
+</li>
+<li>EJS<ul>
+<li><a target="_blank" rel="noopener" href="https://ejs.bootcss.com/#install">https://ejs.bootcss.com/#install</a></li>
+<li>高效的嵌入式 JavaScript 模板引擎<h4 id="打包JS"><a href="#打包JS" class="headerlink" title="打包JS"></a>打包JS</h4><h5 id="编译JS"><a href="#编译JS" class="headerlink" title="编译JS"></a>编译JS</h5></li>
+</ul>
+</li>
+<li>目的<ul>
+<li>将 ES6+ 转成 ES5，从而保证，JS在低版本浏览器的兼容性</li>
+</ul>
+</li>
+<li>安装<ul>
+<li>npm install babel-loader @babel/core @babel/preset-env -D</li>
+</ul>
+</li>
+<li>配置<ul>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/babel-loader">https://www.npmjs.com/package/babel-loader</a><br><img src="36.jpg"><br><img src="37.jpg"><br><img src="38.jpg"></li>
+</ul>
+</li>
+<li>@babel/preset-env 只能转译基本语法（Promise就不能转换）</li>
+<li>@babel/polyfill(转译所有JS新语法)<ul>
+<li>npm i @babel/polyfill -D</li>
+<li>import ‘@babel/polyfill’ (入口文件中引入)</li>
+</ul>
+</li>
+<li>core-js (按需转译JS新语法)<ul>
+<li>安装： npm i core-js -D</li>
+<li>配置：<ul>
+<li>按需加载 useBuiltIns: ‘usage’,</li>
+<li>指定版本 corejs:3<h5 id="校验JS代码格式"><a href="#校验JS代码格式" class="headerlink" title="校验JS代码格式"></a>校验JS代码格式</h5></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>安装<ul>
+<li>npm i eslint eslint-config-airbnb-base eslint-webpack-plugin eslint-plugin-import -D</li>
+<li>eslint (校验JS代码格式的工具)<ul>
+<li><a target="_blank" rel="noopener" href="https://eslint.org/">https://eslint.org/</a><br><img src="39.jpg"></li>
+</ul>
+</li>
+<li>eslint-config-airbnb-base (最流行的JS代码格式规范)<ul>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/eslint-config-airbnb-base">https://www.npmjs.com/package/eslint-config-airbnb-base</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/airbnd/javascript">https://github.com/airbnd/javascript</a></li>
+</ul>
+</li>
+<li>eslint-webpack-plugin (webpack 的 eslint 插件)<ul>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/eslint-webpack-plugin">https://www.npmjs.com/package/eslint-webpack-plugin</a></li>
+</ul>
+</li>
+<li>eslint-plugin-import<ul>
+<li>用于在package.json 中读取 eslintConfig 配置项</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>配置<ul>
+<li>eslint-webpack-plugin<ul>
+<li>const ESLintPlugin = require(‘eslint-webpack-plugin’);</li>
+<li>plugins: [new ESLintPlugin(options)],</li>
+</ul>
+</li>
+<li>eslintConfig (package.json)<ul>
+<li>“eslintConfig”: {“extends”: “airbnb-base”}<h4 id="打包图片"><a href="#打包图片" class="headerlink" title="打包图片"></a>打包图片</h4></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>file-loader<ul>
+<li>将用到的图片复制到输出目录，过滤点不用的图片</li>
+<li>npm i file-loader -D</li>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/file-loader">https://www.npmjs.com/package/file-loader</a></li>
+<li>处理css中的图片路径（例如：背景图片加载失败）<br><img src="40.jpg"></li>
+</ul>
+</li>
+<li>url-loader<ul>
+<li>是file-loader 的升级版，如果图片小于配置大小，会转成base64位字符串</li>
+<li>转成base64字符串后，图片会跟JS一起加载（减少图片的请求次数）</li>
+<li>npm install url-loader -D</li>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/url-loader">https://www.npmjs.com/package/url-loader</a><br><img src="41.jpg"><br><img src="42.jpg"></li>
+</ul>
+</li>
+<li>html-loader<ul>
+<li>将HTML导出为字符串（负责引入img,从而能被url-loader进行处理）</li>
+<li>npm i -D html-loader</li>
+<li><a target="_blank" rel="noopener" href="https://npmjs.com/package/html-loader">https://npmjs.com/package/html-loader</a></li>
+</ul>
+</li>
+<li>html-loader 与 html-webpack-plugin 的冲突<ul>
+<li>原因：htmlWebpackPlugin 会检查目标文件是否已经有loader处理，如果有其他loader处理，htmlWebpackPlugin不再使用lodash.template去处理ejs语法</li>
+<li>解决： 将htmlWebpackPlugin中，模板文件的后缀名改成.ejs（非 .html）<h4 id="打包字体文件"><a href="#打包字体文件" class="headerlink" title="打包字体文件"></a>打包字体文件</h4></li>
+</ul>
+</li>
+<li>字体文件<ul>
+<li><a target="_blank" rel="noopener" href="http://www.iconfont.cn/">http://www.iconfont.cn/</a></li>
+</ul>
+</li>
+<li>file-loader<ul>
+<li>test: /.(eot|svg|ttf|woff|woff2)$/i</li>
+</ul>
+</li>
+<li>copy-webpack-plugin<ul>
+<li>不需要处理的其他文件，可以直接复制到输出目录</li>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/copy-webpack-plugin">https://www.npmjs.com/package/copy-webpack-plugin</a></li>
+</ul>
+</li>
+<li>clean-webpack-plugin (每次打包之前，先删除历史文件)<ul>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/clean-webpack-plugin">https://www.npmjs.com/package/clean-webpack-plugin</a><h4 id="资源模块（Asset-Module）"><a href="#资源模块（Asset-Module）" class="headerlink" title="资源模块（Asset Module）"></a>资源模块（Asset Module）</h4></li>
+</ul>
+</li>
+<li>功能：<ul>
+<li>资源模块是一种模块类型，它允许使用<code>资源文件</code>  ，而无需配置额外loader</li>
+<li>资源文件：字体、图片、图标、HTML……</li>
+<li>不用file-loader、url-loader也能加载图片和字体</li>
+</ul>
+</li>
+<li>详情：<ul>
+<li><a target="_blank" rel="noopener" href="https://webpack.docschina.org/guides/asset-modules/">https://webpack.docschina.org/guides/asset-modules/</a></li>
+</ul>
+</li>
+<li>webpack 4 <ul>
+<li>raw-loader (将文件导入为字符串)</li>
+<li>file-loader （将文件发送到输出目录）</li>
+<li>url-loader（将文件发送到输出目录，或转为Data URI内联到bundle中）</li>
+</ul>
+</li>
+<li>Webpack 5<ul>
+<li>asset/resource 发送一个单独的文件并导出URL（之前通过使用file-loader实现）</li>
+<li>asset/inline 导出一个资源的data URI（之前通过使用url-loader实现）</li>
+<li>asset/source 导出资源的源代码（之前通过使用raw-loader实现）</li>
+<li>asset 在导出一个data URI和发送一个单独的文件之间自动选择（url-loader）<h4 id="Webpack-Dev-Server"><a href="#Webpack-Dev-Server" class="headerlink" title="Webpack Dev Server"></a>Webpack Dev Server</h4></li>
+</ul>
+</li>
+<li>作用：发布web服务，提高开发效率</li>
+<li>详情：<ul>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/webpack-dev-server">https://www.npmjs.com/package/webpack-dev-server</a></li>
+<li><a target="_blank" rel="noopener" href="https://webpack.docschina.org/configuration/dev-server">https://webpack.docschina.org/configuration/dev-server</a></li>
+</ul>
+</li>
+<li>使用<ul>
+<li>Webpack 4: webpack-dev-server …</li>
+<li>Webpack 5: webpack serve …</li>
+</ul>
+</li>
+<li>热更新<ul>
+<li>Webpack 4 <ul>
+<li>hot: true</li>
+</ul>
+</li>
+<li>Webpack 5<ul>
+<li>liveReload: true (禁用hot)</li>
+<li>target: ‘web’ (热更新只适用于web相关的targets)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>proxy (配置接口代理)<ul>
+<li>解决webpack-dev-server 下，访问接口的跨域问题<br>eg:<a target="_blank" rel="noopener" href="https://api.github.com/users">https://api.github.com/users</a><h3 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h3></li>
+</ul>
+</li>
+<li>区分打包环境</li>
+<li>自定义plugin</li>
+<li>自定义loader</li>
+<li>代码分离（Code Splitting）</li>
+<li>源码隐射（Source Map）</li>
+<li>删除亢余代码（Tree Shaking）</li>
+<li>缓存</li>
+<li>模块解析（resolve）</li>
+<li>排除依赖（external）</li>
+<li>模块联邦<h4 id="区分环境打包"><a href="#区分环境打包" class="headerlink" title="区分环境打包"></a>区分环境打包</h4></li>
+<li>通过环境变量区分<ul>
+<li>webpack –env.production</li>
+<li>webpack.config.js中判断env<br><img src="44.jpg"></li>
+</ul>
+</li>
+<li>通过配置文件区分<ul>
+<li>webpack.dev.conf.js 开发</li>
+<li>webpack.prod.conf.js 生产</li>
+<li>执行打包时，指定配置文件（webpack –config webpack.[dev|prod].conf.js）<h5 id="webpack-通过环境变量区分打包"><a href="#webpack-通过环境变量区分打包" class="headerlink" title="webpack 通过环境变量区分打包"></a>webpack 通过环境变量区分打包</h5></li>
+</ul>
+</li>
+<li>命令行中设置环境变量<ul>
+<li>webpack 4: webpack –env.production</li>
+<li>webpack 5: webpack –env production</li>
+</ul>
+</li>
+<li>webpack.config.js<ul>
+<li>读取环境变量 env.production</li>
+<li>根据环境变量指定不同的配置<br><img src="46.jpg"></li>
+</ul>
+</li>
+<li>详情<ul>
+<li><a target="_blank" rel="noopener" href="https://www.webpackjs.com/guides/environment-variables/">https://www.webpackjs.com/guides/environment-variables/</a><h5 id="webpack-通过配置文件区分打包"><a href="#webpack-通过配置文件区分打包" class="headerlink" title="webpack 通过配置文件区分打包"></a>webpack 通过配置文件区分打包</h5></li>
+</ul>
+</li>
+<li>通过配置文件区分环境<ul>
+<li>webpack.dev.conf.js (mode:development)</li>
+<li>webpack.prod.conf.js (mode:production)</li>
+<li>webpack.base.conf.js(公共配置)</li>
+</ul>
+</li>
+<li>webpack-merge<ul>
+<li>将多个配置合并在一起</li>
+<li>npm i -D webpack-merge</li>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/webpack-merge">https://www.npmjs.com/package/webpack-merge</a><br><img src="51.jpg"><h5 id="webpack-DefinePlugin"><a href="#webpack-DefinePlugin" class="headerlink" title="webpack DefinePlugin"></a>webpack DefinePlugin</h5></li>
+</ul>
+</li>
+<li>DefinePlugin<ul>
+<li>为配置注入全局变量</li>
+<li>开发环境和生产环境的接口地址不同<br><img src="47.jpg"><h4 id="自定义-plugin"><a href="#自定义-plugin" class="headerlink" title="自定义 plugin"></a>自定义 plugin</h4></li>
+</ul>
+</li>
+<li>webpack 插件是一个具有apply方法的JavaScript对象。apply方法会被webpack compiler调用，并且在整个编译生命周期都可以访问compiler对象。</li>
+<li>原理：<ul>
+<li>通过在生命周期的钩子中挂载函数，来实现功能扩展</li>
+</ul>
+</li>
+<li>详情：<ul>
+<li><a target="_blank" rel="noopener" href="https://webpack.docschina.org/concepts/plugins/">https://webpack.docschina.org/concepts/plugins/</a><br><img src="53.jpg"><h5 id="生命周期与钩子"><a href="#生命周期与钩子" class="headerlink" title="生命周期与钩子"></a>生命周期与钩子</h5></li>
+</ul>
+</li>
+<li>生命周期<ul>
+<li>生命周期就是整个生命过程中的关键节点</li>
+<li>人：出生-&gt;上学-&gt;毕业-&gt;结婚-&gt;生子-&gt;end</li>
+</ul>
+</li>
+<li>钩子<ul>
+<li>钩子是提前在可能增加功能的地方，埋好（预设）一个函数</li>
+<li>生命周期中的函数</li>
+<li>钩子是站点，在钩子中，可以挂载一些功能</li>
+</ul>
+</li>
+<li>webpack 常用钩子<ul>
+<li><a target="_blank" rel="noopener" href="https://www.webpackjs.com/api/compiler-hooks/">https://www.webpackjs.com/api/compiler-hooks/</a><br><img src="49.jpg"><br><img src="48.jpg"><br><img src="50.jpg"><h4 id="自定义-loader"><a href="#自定义-loader" class="headerlink" title="自定义 loader"></a>自定义 loader</h4></li>
+</ul>
+</li>
+<li>Loader本质上就是一个ESM模块，它导出一个函数，在函数中对打包资源进行转换。<br><img src="52.jpg"></li>
+<li>声明一个读取markdown(.md)文件内容的loader<ul>
+<li>marked(将markdown语法转成html) —-需安装</li>
+<li>loader-utils (接受loader配置项) —-需安装</li>
+<li>npm i -D marked loader-utils<br><img src="43.jpg"><br><img src="45.jpg"></li>
+</ul>
+</li>
+</ul>
+</div><div class="tags"><a href="/tags/webpack/"><i class="fa fa-tag"></i>webpack</a></div><div class="post-nav"><a class="next" href="/2021/09/26/webpack/">webpack</a></div><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/sukkaw/disqusjs/dist/disqusjs.css?v=1.0.0"><script type="text/javascript" src="https://cdn.jsdelivr.net/gh/sukkaw/disqusjs/dist/disqus.js?v=1.0.0"></script><script type="text/javascript" id="disqus-count-script">$(function() {
+     var xhr = new XMLHttpRequest();
+     xhr.open('GET', '//disqus.com/next/config.json', true);
+     xhr.timeout = 2500;
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4 && xhr.status === 200) {
+         $('.post-meta .post-comments-count').show();
+         var s = document.createElement('script');
+         s.id = 'dsq-count-scr';
+         s.src = 'https://.disqus.com/count.js';
+         s.async = true;
+         (document.head || document.body).appendChild(s);
+       }
+     };
+     xhr.ontimeout = function () { xhr.abort(); };
+     xhr.send(null);
+   });</script><div class="comments" id="disqus_thread"><script type="text/javascript">// Load comments with DisqusJS
+function loadComments() {
+  window.dsqjs = new DisqusJS({
+    shortname: '',
+    siteName: 'Monster',
+    identifier: '2021/09/29/webpack-二/',
+    url: 'https://liuhf666.github.io/2021/09/29/webpack-二/',
+    title: 'webpack(二)',
+    api: '',
+    apikey: '',
+    admin: '',
+    adminLabel: ''
+  });
+}
+// Lazy load {# Credit: https://github.com/theme-next/hexo-theme-next/blob/master/layout/_third-party/comments/disqus.swig #}
+(function () {
+  var offsetTop = document.getElementById('disqus_thread').offsetTop - window.innerHeight;
+  if (offsetTop <= 0) {
+    // Load directly when there's no scrollbar
+    window.addEventListener('load', loadComments, false);
+  } else {
+    var disqusScroll = function () {
+      // offsetTop may changes because of manually resizing browser window or lazy loading images
+      var offsetTop = document.getElementById('disqus_thread').offsetTop - window.innerHeight;
+      var scrollTop = window.scrollY;
+
+      // Pre-load comments a bit? (margin or anything else)
+      if (offsetTop - scrollTop < 60) {
+        window.removeEventListener('scroll', disqusScroll);
+        loadComments();
+      }
+    };
+    window.addEventListener('scroll', disqusScroll);
+  }
+})();
+// Scroll to comments automatically if #comment-xxx anchor specified
+window.addEventListener('load', function () {
+  // I don't know why, it just works.
+  window.setTimeout(function () {
+    if (location.hash.indexOf('#comment-') !== -1) {
+      document.getElementById('disqus_thread').scrollIntoView(true);
+    }
+  }, 100);
+}, false);
+</script></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="https://liuhf666.github.io"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ES5/">ES5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Google/">Google</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Life/">Life</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SPA-SEO-SSR/">SPA,SEO,SSR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E9%9D%A2%E7%BB%8F/">Web面经</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8E%9F%E5%9E%8B%E9%93%BE/">原型链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B7%B1-%E6%B5%85%E6%8B%B7%E8%B4%9D/">深&浅拷贝</a><span class="category-list-count">1</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/09/29/webpack-%E4%BA%8C/">webpack(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/09/26/webpack/">webpack</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/07/28/chrome-performance%E9%A1%B5%E9%9D%A2%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">chrome-performance页面性能分析使用教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/07/28/hexo%E7%BC%96%E8%BE%91%E8%AF%AD%E6%B3%95%E9%9B%86%E5%90%88/">hexo编辑语法集合</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/07/28/%E6%B5%85%E8%B0%88SPA-SEO-SSR/">浅谈SPA,SEO,SSR</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/07/26/ES5%E5%AE%9E%E7%8E%B0%E7%BB%A7%E6%89%BF/">ES5实现继承</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/07/22/Vue%E9%A1%B9%E7%9B%AE%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88/">Vue项目性能优化方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/07/22/vue%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E5%B9%B6%E6%93%8D%E4%BD%9CDOM%E5%85%83%E7%B4%A0/">Vue如何获取并操作DOM元素</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/07/21/HTTP%E5%92%8CHTTPS/">HTTP和HTTPS</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/09/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B5%85%E6%8B%B7%E8%B4%9D/">深拷贝和浅拷贝</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://liuhf666.github.io/" title="liuhf" target="_blank">liuhf</a><ul></ul><a href="https://github.com/liuhf666/liuhf666.github.io.git" title="Git" target="_blank">Git</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">Monster.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.css"><script type="text/javascript" color="255,0,0" opacity="0.7" zIndex="-1" count="88" src="//cdn.jsdelivr.net/npm/canvas-nest.js/dist/canvas-nest.min.js"></script><script type="text/javascript" src="/js/love.js"></script><script type="text/javascript" src="/js/copycode.js" successtext="复制成功!"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>
